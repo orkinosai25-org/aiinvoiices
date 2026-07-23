@@ -11,7 +11,7 @@ const Notfound = () => {
       <p className='text-gray-800 mb-6'>
        Page Not Found
       </p>
-      <Link href='/' className='px-4 py-22 rounded-md bg-indigo-700 text-white'>
+      <Link href='/' className='px-4 py-2 rounded-md bg-indigo-700 text-white'>
        Go Home
       </Link>
     </div>

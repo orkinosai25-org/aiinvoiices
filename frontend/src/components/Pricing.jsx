@@ -303,7 +303,7 @@ const Pricing = () => {
              <span className={pricingStyles.titleGradient}>Fair Pricing</span>
          </h2>
          <p className={pricingStyles.description}>
-          Start free, upgrade as you grow.No hidden fees, no surprices charges.
+          Start free, upgrade as you grow. No hidden fees, no surprise charges.
          </p>
          <div style={{marginTop: 12}} className={pricingStyles.billingToggle}>
            <button onClick={()=> setBillingPeriod("monthly")}
