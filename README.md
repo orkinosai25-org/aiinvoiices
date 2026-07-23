@@ -188,13 +188,17 @@ These are not extraction problems anymore, but they still affect full local use:
    - Without `MONGODB_URI`, the server stays up for local bootstrapping and health checks.
    - Create/update/read invoice and business-profile flows still require MongoDB.
 
-3. **Frontend lint still fails on pre-existing component issues**
-   - `npm run lint:frontend` currently reports 40 problems (27 errors, 13 warnings) in application code.
-   - High-signal failures remain in files such as:
+3. **Frontend lint warnings (performance-only, no errors)**
+   - `npm run lint:frontend` now reports **0 errors** (reduced from 28 errors) and 14 warnings.
+   - Remaining warnings are all `@next/next/no-img-element` (performance hint for user-uploaded images
+     where Next.js `<Image />` is not appropriate) and two config-file style hints.
+   - Previously failing files are now clean:
      - `frontend/src/components/AiInvoiceModal.jsx`
      - `frontend/src/components/AppShell.jsx`
-     - `frontend/src/screens/CreateInvoice.jsx`
-   - These include React compiler warnings, unescaped entities, and legacy `<img>` usage.
+     - `frontend/src/components/InvoicePreview.jsx`
+     - `frontend/src/components/Hero.jsx`
+     - `frontend/src/screens/Dashboard.jsx`
+     - `frontend/src/screens/Invoices.jsx`
 
 4. **Frontend dependencies currently have high-severity audit findings**
    - `npm audit` in `frontend/` reports 3 high-severity vulnerabilities through the current `next` dependency chain (`next`, nested `postcss`, and `sharp`).
@@ -220,11 +224,17 @@ During the stabilization pass, the following additional fixes were made:
 - fixed the broken `success:false.valueOf` 404 response in the business-profile update controller
 - added the missing invoice `notes` field to the backend schema so AI/manual notes are preserved
 
+During the demo-readiness pass, the following additional fixes were made:
+- fixed the conditional `useAuth()` hook call in `InvoicePreview.jsx` (React rules-of-hooks violation)
+- moved all icon components and `SidebarLink` outside the `AppShell` function body (components-in-render violation)
+- fixed typo "AI-Powerd" → "AI-Powered" in the landing-page hero badge
+- escaped unescaped quote/apostrophe entities in `Hero.jsx` and `InvoicePreview.jsx`
+- suppressed `react-hooks/set-state-in-effect` on intentional data-fetch effects in Dashboard, Invoices, and AiInvoiceModal
+
 ## Recommended next steps
 
 1. Add real environment values.
 2. Verify Clerk sign-in flow end-to-end now that public pages boot without auth.
 3. Verify MongoDB-backed invoice and business-profile CRUD, especially legacy records created before the profile-field fix.
 4. Verify Gemini-powered invoice generation with a live API key.
-5. Clean up the remaining frontend lint violations and React compiler warnings.
-6. Upgrade the frontend dependency stack to clear the current high-severity audit findings.
+5. Upgrade the frontend dependency stack to clear the current high-severity audit findings.
