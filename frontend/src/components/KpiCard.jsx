@@ -93,7 +93,7 @@ const KpiCard = ({  title,
 
 
   return (
-    <div className={`{kpiCardStyles.cardContainer} ${className}`}>
+    <div className={`${kpiCardStyles.cardContainer} ${className}`}>
       <div className={kpiCardStyles.animatedBackground}></div>
 
       <div className={kpiCardStyles.content}>
