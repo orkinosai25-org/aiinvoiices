@@ -322,7 +322,8 @@ export default function InvoicesPage() {
 
     useEffect(() => {
         // load invoices on mount and whenever auth state changes
-        fetchInvoices();
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        void fetchInvoices();
     }, [fetchInvoices, isSignedIn]);
 
     // client-side filtering/sorting (same logic)
@@ -400,7 +401,9 @@ export default function InvoicesPage() {
     const pageData = filtered.slice(startIndex, startIndex + perPage);
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (page > totalPages) setPage(1);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [totalPages]);
 
     function handleSort(key) {

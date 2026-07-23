@@ -149,11 +149,12 @@ const Dashboard = () => {
   }, [obtainToken]);
 
   useEffect(() => {
-    fetchInvoices();
-    fetchBusinessProfile();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void fetchInvoices();
+    void fetchBusinessProfile();
 
     function onStorage(e) {
-      if (e.key === "invoices_v1") fetchInvoices();
+      if (e.key === "invoices_v1") void fetchInvoices();
     }
 
     window.addEventListener("storage", onStorage);

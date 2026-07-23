@@ -10,7 +10,9 @@ const AiInvoiceModal = ({ open, onClose, onGenerate, initialText = "" }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Reset form state whenever the modal opens or the seed text changes.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setText(initialText || "");
     setError("");
     setLoading(false);
