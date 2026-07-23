@@ -107,7 +107,7 @@ function formatCurrency(amount = 0, currency = "USD") {
     }
 }
 
-/* ---------- date formatting helper: DD/MM/YYYY (e.g. 23/07/2026) ---------- */
+/* ---------- date formatting helper: DD/MM/YYYY ---------- */
 function formatDate(dateInput) {
     if (!dateInput) return "—";
     const d = dateInput instanceof Date ? dateInput : new Date(String(dateInput));
