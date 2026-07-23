@@ -18,8 +18,6 @@ const businessProfileSchema = new mongoose.Schema({
 
     signatureOwnerName: {type: String, required: false, default:""},
     signatureOwnerTitle:{ type: String, required: false, default:""},
-    signatuOwnerName: {type: String, required: false, default: undefined},
-    signatuOwnerTitle:{ type: String, required: false, default: undefined},
     notes: { type: String, required: false, default: "" },
 
     defaultTaxPercent: {type: Number , required:false, default: 0}, // US sales tax varies by state
