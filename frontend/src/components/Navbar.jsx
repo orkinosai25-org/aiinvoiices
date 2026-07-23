@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { navbarStyles } from '@/lib/dummyStyles';
 import Link from 'next/link';
 import { useNavigate } from '@/lib/router';
-import { SignedOut, useAuth, useClerk, useUser } from '@clerk/nextjs';
+import { SignedOut, useAuth, useClerk, useUser } from '@/lib/clerkCompat';
 
 const Navbar = () => {
 

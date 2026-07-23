@@ -75,6 +75,7 @@ const invoiceSchema = new mongoose.Schema({
 
     signatureName: { type: String, default: "" },
     signatureTitle: { type: String, default: "" },
+    notes: { type: String, default: "" },
 
     taxPercent: { type: Number, default: 0 }, // US sales tax varies by state, default to 0
 

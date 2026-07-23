@@ -22,6 +22,22 @@ function uploadedFilesToUrls(req) {
   return urls;
 }
 
+function normalizeProfile(doc) {
+  if (!doc) {
+    return doc;
+  }
+
+  const profile = typeof doc.toObject === "function" ? doc.toObject() : { ...doc };
+
+  profile.signatureOwnerName =
+    profile.signatureOwnerName ?? profile.signatuOwnerName ?? "";
+  profile.signatureOwnerTitle =
+    profile.signatureOwnerTitle ?? profile.signatuOwnerTitle ?? "";
+  profile.notes = profile.notes ?? "";
+
+  return profile;
+}
+
 // create a business profile
 export async function createBusinessProfile(req,res) {
     try {
@@ -49,6 +65,7 @@ export async function createBusinessProfile(req,res) {
       signatureUrl: fileUrls.signatureUrl || body.signatureUrl || null,
       signatureOwnerName: body.signatureOwnerName || "",
       signatureOwnerTitle: body.signatureOwnerTitle || "",
+      notes: body.notes || "",
       defaultTaxPercent:
         body.defaultTaxPercent !== undefined ? Number(body.defaultTaxPercent) : 0,
     });
@@ -56,7 +73,7 @@ export async function createBusinessProfile(req,res) {
     const saved = await profile.save();
     return res.status(201).json({
         success: true,
-        data: saved,
+        data: normalizeProfile(saved),
         message: "Business Profile Created"
     })
 
@@ -89,7 +106,7 @@ export async function updateBusinessProfile(req,res){
 
       const existing = await BusinessProfile.findById(id);
       if(!existing) return res.status(404).json({
-        success:false.valueOf,
+       success:false,
         message: "Business profile not found"
       })
 
@@ -118,6 +135,7 @@ export async function updateBusinessProfile(req,res){
 
     if (body.signatureOwnerName !== undefined) update.signatureOwnerName = body.signatureOwnerName;
     if (body.signatureOwnerTitle !== undefined) update.signatureOwnerTitle = body.signatureOwnerTitle;
+    if (body.notes !== undefined) update.notes = body.notes;
     if (body.defaultTaxPercent !== undefined) update.defaultTaxPercent = Number(body.defaultTaxPercent);
 
     const updated = await BusinessProfile.findByIdAndUpdate(id,update,{
@@ -127,7 +145,7 @@ export async function updateBusinessProfile(req,res){
 
     return res.status(200).json({
         success: true,
-        data: updated,
+        data: normalizeProfile(updated),
         message: "Profile updated"
     })
 
@@ -162,7 +180,7 @@ export async function getMyBusinessProfile(req,res){
         }
          return res.status(200).json({
             success: true,
-            data: profile
+            data: normalizeProfile(profile)
         });
 
 

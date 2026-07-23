@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useParams } from "next/navigation";
 import { useNavigate, useLocation } from "@/lib/router";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth } from "@/lib/clerkCompat";
 import { invoicePreviewStyles } from "@/lib/dummyStyles";
 import { API_BASE } from "@/lib/apiBase";
 

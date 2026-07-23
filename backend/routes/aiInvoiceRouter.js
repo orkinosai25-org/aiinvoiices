@@ -12,8 +12,6 @@ if (!API_KEY) {
   console.warn("No Gemini API key found in .env");
 }
 
-const ai = new GoogleGenAI({ apiKey: API_KEY });
-
 // Use only valid/current model names you want to try
 const MODEL_CANDIDATES = [
   "gemini-2.5-flash",
@@ -156,8 +154,8 @@ function classifyGeminiError(err) {
   };
 }
 
-async function tryGenerateWithModel(modelName, prompt) {
-  const response = await ai.models.generateContent({
+async function tryGenerateWithModel(aiClient, modelName, prompt) {
+  const response = await aiClient.models.generateContent({
     model: modelName,
     contents: prompt,
   });
@@ -201,6 +199,7 @@ aiInvoiceRouter.post("/generate", async (req, res) => {
     }
 
     const fullPrompt = buildInvoicePrompt(String(prompt).trim());
+    const aiClient = new GoogleGenAI({ apiKey: API_KEY });
 
     let lastError = null;
     let lastText = null;
@@ -209,7 +208,7 @@ aiInvoiceRouter.post("/generate", async (req, res) => {
 
     for (const modelName of MODEL_CANDIDATES) {
       try {
-        const result = await tryGenerateWithModel(modelName, fullPrompt);
+        const result = await tryGenerateWithModel(aiClient, modelName, fullPrompt);
         lastText = result.text;
         usedModel = result.modelName;
         break;

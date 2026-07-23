@@ -1,8 +1,13 @@
+import { NextResponse } from "next/server";
 import { clerkMiddleware } from "@clerk/nextjs/server";
+
+const hasClerkKeys = Boolean(
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY
+);
 
 // All routes remain public at the middleware level; route protection is done
 // client-side with <SignedIn>/<RedirectToSignIn>, mirroring the original app.
-export default clerkMiddleware();
+export default hasClerkKeys ? clerkMiddleware() : () => NextResponse.next();
 
 export const config = {
   matcher: [

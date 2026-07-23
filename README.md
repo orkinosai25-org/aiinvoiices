@@ -156,25 +156,30 @@ npm run lint:frontend
 
 ## Validation performed
 
-The following commands were run successfully during repository recovery:
+The following commands were run successfully during repository recovery and the July 2026 stabilization pass:
 
 ```bash
 npm install
 npm run install:all
 npm run build
+npm run dev
 curl http://127.0.0.1:4000/
+curl http://127.0.0.1:3000/
+curl http://127.0.0.1:3000/app
 ```
 
 Confirmed results:
 - Frontend production build succeeds.
 - Backend starts and responds with `API WORKING`.
 - Root `npm run dev` starts the frontend and backend commands together.
+- The frontend home page now boots without Clerk keys instead of failing with HTTP 500.
+- Protected frontend routes now render a configuration notice when Clerk is not configured.
 
 ## Known blockers / follow-up work
 
 These are not extraction problems anymore, but they still affect full local use:
 
-1. **Real secrets are still required**
+1. **Runtime integrations still need real credentials**
    - Clerk auth will not function without valid Clerk keys.
    - AI invoice generation will not work without `GEMINI_API_KEY`.
    - Invoice/profile persistence requires a working `MONGODB_URI`.
@@ -183,11 +188,17 @@ These are not extraction problems anymore, but they still affect full local use:
    - Without `MONGODB_URI`, the server stays up for local bootstrapping and health checks.
    - Create/update/read invoice and business-profile flows still require MongoDB.
 
-3. **Frontend lint currently reports pre-existing app issues**
-   - `npm run lint:frontend` now runs correctly, but it surfaces existing code issues in files such as:
+3. **Frontend lint still fails on pre-existing component issues**
+   - `npm run lint:frontend` currently reports 40 problems (27 errors, 13 warnings) in application code.
+   - High-signal failures remain in files such as:
      - `frontend/src/components/AiInvoiceModal.jsx`
      - `frontend/src/components/AppShell.jsx`
-   - Those issues were not required to extract and bootstrap the project, so they were left as follow-up cleanup.
+     - `frontend/src/screens/CreateInvoice.jsx`
+   - These include React compiler warnings, unescaped entities, and legacy `<img>` usage.
+
+4. **Frontend dependencies currently have high-severity audit findings**
+   - `npm audit` in `frontend/` reports 3 high-severity vulnerabilities through the current `next` dependency chain (`next`, nested `postcss`, and `sharp`).
+   - This pass did not force a framework downgrade or speculative dependency migration; upgrade planning is still needed.
 
 ## Notes on fixes applied
 
@@ -201,10 +212,19 @@ During extraction/bootstrap, the following structural fixes were made:
 - aligned business-profile upload fields with the names the frontend actually sends
 - updated frontend lint wiring for the installed Next.js/ESLint toolchain
 
+During the stabilization pass, the following additional fixes were made:
+- made frontend runtime boot without Clerk keys by falling back to an unauthenticated mode for public pages
+- changed protected frontend routes to show an explicit Clerk configuration notice instead of crashing
+- stopped Gemini client initialization from emitting extra startup warnings when no API key is configured
+- fixed business-profile response/storage mismatches for `signatureOwnerName`, `signatureOwnerTitle`, and `notes`
+- fixed the broken `success:false.valueOf` 404 response in the business-profile update controller
+- added the missing invoice `notes` field to the backend schema so AI/manual notes are preserved
+
 ## Recommended next steps
 
 1. Add real environment values.
-2. Verify Clerk sign-in flow.
-3. Verify MongoDB-backed invoice and business-profile CRUD.
-4. Verify Gemini-powered invoice generation.
-5. Clean up the remaining frontend lint violations.
+2. Verify Clerk sign-in flow end-to-end now that public pages boot without auth.
+3. Verify MongoDB-backed invoice and business-profile CRUD, especially legacy records created before the profile-field fix.
+4. Verify Gemini-powered invoice generation with a live API key.
+5. Clean up the remaining frontend lint violations and React compiler warnings.
+6. Upgrade the frontend dependency stack to clear the current high-severity audit findings.

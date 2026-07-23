@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { heroStyles } from '@/lib/dummyStyles';
-import { SignedIn, SignedOut, useClerk } from '@clerk/nextjs';
+import { SignedIn, SignedOut, useClerk } from '@/lib/clerkCompat';
 import { useNavigate } from '@/lib/router';
 
 const Hero = () => {

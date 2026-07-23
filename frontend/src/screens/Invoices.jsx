@@ -6,7 +6,7 @@ import AiInvoiceModal from "@/components/AiInvoiceModal";
 import GeminiIcon from "@/components/GeminiIcon";
 import { useNavigate } from "@/lib/router";
 import { invoicesStyles } from "@/lib/dummyStyles";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth } from "@/lib/clerkCompat";
 import { API_BASE } from "@/lib/apiBase";
 
 /* ---------- helpers ---------- */

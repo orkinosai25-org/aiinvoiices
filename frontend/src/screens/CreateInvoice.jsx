@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { useNavigate, useLocation } from "@/lib/router";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth } from "@/lib/clerkCompat";
 import StatusBadge from "@/components/StatusBadge";
 import {
   createInvoiceStyles,
