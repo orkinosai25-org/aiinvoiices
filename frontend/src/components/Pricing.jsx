@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { pricingStyles, pricingCardStyles } from '@/lib/dummyStyles';
-import { SignedIn, SignedOut, useAuth, useClerk } from '@clerk/nextjs';
+import { SignedIn, SignedOut, useAuth, useClerk } from '@/lib/clerkCompat';
 import { useNavigate } from '@/lib/router';
 
 const PricingCard = ({

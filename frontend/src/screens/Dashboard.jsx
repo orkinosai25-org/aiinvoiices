@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { dashboardStyles } from '@/lib/dummyStyles';
 import { useNavigate } from '@/lib/router';
-import { useAuth } from '@clerk/nextjs';
+import { useAuth } from '@/lib/clerkCompat';
 import KpiCard from '@/components/KpiCard';
 import { EyeIcon, FileText, FileTextIcon } from "lucide-react";
 import StatusBadge from '@/components/StatusBadge';

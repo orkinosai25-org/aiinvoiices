@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import { businessProfileStyles, iconColors, customStyles } from "@/lib/dummyStyles";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth } from "@/lib/clerkCompat";
 import {
   ImageIcon,
   SaveIcon,

@@ -1,5 +1,5 @@
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
+import { SafeClerkProvider } from "@/lib/clerkCompat";
 
 export const metadata = {
   title: "PromptToInvoice",
@@ -20,7 +20,7 @@ export const dynamic = "force-dynamic";
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
+    <SafeClerkProvider>
       <html lang="en">
         <body>
           <div className="min-h-screen max-w-full overflow-x-hidden">
@@ -28,6 +28,6 @@ export default function RootLayout({ children }) {
           </div>
         </body>
       </html>
-    </ClerkProvider>
+    </SafeClerkProvider>
   );
 }

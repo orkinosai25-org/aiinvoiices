@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
+import { RedirectToSignIn, SignedIn, SignedOut } from "@/lib/clerkCompat";
 import AppShell from "@/components/AppShell";
 
 export default function AppLayout({ children }) {

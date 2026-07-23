@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { appShellStyles } from '@/lib/dummyStyles';
-import { useClerk, useUser } from '@clerk/nextjs';
+import { useClerk, useUser } from '@/lib/clerkCompat';
 import Link from 'next/link';
 import NavLink from '@/components/NavLink';
 import { useNavigate } from '@/lib/router';

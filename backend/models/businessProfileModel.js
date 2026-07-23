@@ -1,7 +1,4 @@
 import mongoose from "mongoose";
-import validator from "validator";
-
-const { isLowercase } = validator;
 
 const businessProfileSchema = new mongoose.Schema({
     owner: {type: String, required: true, index: true},
@@ -14,13 +11,14 @@ const businessProfileSchema = new mongoose.Schema({
 
 
     // for images
-    logoUrl:{type: String, required: false, default: "null"},
-    stampUrl:{type: String, required: false, default: "null"},
+    logoUrl:{type: String, required: false, default: null},
+    stampUrl:{type: String, required: false, default: null},
     signatureUrl: {type: String, required: false, default:null},
 
 
-    signatuOwnerName: {type: String, required: false, default:""},
-    signatuOwnerTitle:{ type: String, required: false, default:""},
+    signatureOwnerName: {type: String, required: false, default:""},
+    signatureOwnerTitle:{ type: String, required: false, default:""},
+    notes: { type: String, required: false, default: "" },
 
     defaultTaxPercent: {type: Number , required:false, default: 0}, // US sales tax varies by state
 
