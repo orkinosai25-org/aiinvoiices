@@ -2,7 +2,7 @@
 
 ## Source import status
 
-The repository archive `/home/runner/work/aiinvoiices/aiinvoiices/PromptToInvoice-20260723T082909Z-1-001.zip` was inspected and extracted.
+The repository archive `PromptToInvoice-20260723T082909Z-1-001.zip` was inspected and extracted.
 
 - Extraction succeeded in this environment.
 - The ZIP content contains only one entry: `./PromptToInvoice/` (an empty directory).
