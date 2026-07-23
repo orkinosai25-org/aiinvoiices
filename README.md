@@ -1,229 +1,210 @@
-# 🚀 PromptToInvoice
+# PromptToInvoice
 
-AI-Powered Invoice Generator for US/Europe Market with Clerk Authentication and Google Gemini AI.
+PromptToInvoice is an AI-assisted invoice application with a Next.js frontend and an Express/MongoDB backend.
 
-## 📋 Features
+## Repository status
 
-- ✅ AI-powered invoice generation (Google Gemini)
-- ✅ User authentication (Clerk)
-- ✅ Invoice management (Create, Read, Update, Delete)
-- ✅ Business profile management
-- ✅ Multi-currency support (USD, EUR)
-- ✅ Dashboard with analytics
-- ✅ Responsive design
+The repository now contains the extracted contents of `frontend.zip` and `backend.zip` in:
 
-## 🛠️ Tech Stack
+- `/home/runner/work/aiinvoiices/aiinvoiices/frontend`
+- `/home/runner/work/aiinvoiices/aiinvoiices/backend`
 
-**Frontend:**
-- React + Vite
+The uploaded archives also contained environment files and dependency artifacts. Those were intentionally **not committed**; use the included `.env.example` files instead.
+
+## Stack
+
+### Frontend
+- Next.js 16
+- React 19
+- Clerk
 - Tailwind CSS
-- Clerk (Authentication)
-- React Router
 
-**Backend:**
+### Backend
 - Node.js + Express
 - MongoDB + Mongoose
-- Clerk (Auth validation)
-- Google Gemini AI
+- Clerk middleware
+- Google Gemini API
 
-## 🚀 Quick Start
+## Project structure
 
-### **Option 1: Run Everything at Once (Recommended)**
+```text
+aiinvoiices/
+├── backend/
+│   ├── .env.example
+│   ├── config/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── uploads/
+│   ├── package.json
+│   └── server.js
+├── frontend/
+│   ├── .env.example
+│   ├── public/
+│   ├── src/
+│   ├── package.json
+│   └── next.config.mjs
+├── package.json
+└── README.md
+```
+
+## Requirements
+
+- Node.js 20+
+- npm 10+
+- MongoDB connection string
+- Clerk keys
+- Google Gemini API key
+
+Validated in this repo with:
+- Node.js `v24.18.0`
+- npm `11.16.0`
+
+## Setup
+
+### 1. Install dependencies
+
+From `/home/runner/work/aiinvoiices/aiinvoiices`:
 
 ```bash
-# Install all dependencies (first time only)
+npm run install:all
+```
+
+### 2. Configure environment variables
+
+#### Backend
+
+Copy the example file and fill in the real values:
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+Required backend values:
+
+```env
+PORT=4000
+FRONTEND_URL=http://localhost:3000
+BACKEND_PUBLIC_URL=http://localhost:4000
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>/<database>?retryWrites=true&w=majority
+CLERK_SECRET_KEY=sk_test_your_clerk_secret_key
+GEMINI_API_KEY=your_google_gemini_api_key
+```
+
+#### Frontend
+
+Copy the example file and fill in the real values:
+
+```bash
+cp frontend/.env.example frontend/.env.local
+```
+
+Required frontend values:
+
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_clerk_publishable_key
+NEXT_PUBLIC_API_BASE=http://localhost:4000
+```
+
+## Run the project
+
+### Run frontend and backend together
+
+From `/home/runner/work/aiinvoiices/aiinvoiices`:
+
+```bash
+npm run dev
+```
+
+This starts:
+- Frontend: `http://localhost:3000`
+- Backend: `http://localhost:4000`
+
+### Run each app separately
+
+```bash
+cd /home/runner/work/aiinvoiices/aiinvoiices/backend
+npm start
+```
+
+```bash
+cd /home/runner/work/aiinvoiices/aiinvoiices/frontend
+npm run dev
+```
+
+## Useful commands
+
+```bash
+# install everything
 npm run install:all
 
-# Run both frontend and backend
+# run both apps
 npm run dev
-```
 
-That's it! 🎉
-
-- Frontend: http://localhost:3000
-- Backend: http://localhost:4000
-
-### **Option 2: Run Separately**
-
-```bash
-# Terminal 1 - Backend
-cd backend
-npm install  # first time only
-npm start
-
-# Terminal 2 - Frontend
-cd frontend
-npm install  # first time only
-npm run dev
-```
-
-## ⚙️ Environment Setup
-
-### **1. Backend Environment Variables**
-
-Create `backend/.env`:
-
-```env
-# Clerk Authentication
-CLERK_PUBLISHABLE_KEY=pk_test_your_key_here
-CLERK_SECRET_KEY=sk_test_your_secret_here
-
-# Google Gemini AI
-GEMINI_API_KEY=your_gemini_key_here
-
-# MongoDB Database
-MONGODB_URI=your_mongodb_connection_string
-
-# Frontend URL (for CORS)
-FRONTEND_URL=http://localhost:3000
-```
-
-### **2. Frontend Environment Variables**
-
-Create `frontend/.env`:
-
-```env
-# Clerk Authentication
-VITE_CLERK_PUBLISHABLE_KEY=pk_test_your_key_here
-```
-
-## 🔑 Getting API Keys
-
-### **Clerk (Authentication):**
-1. Go to https://clerk.com
-2. Sign up and create application
-3. Copy Publishable Key and Secret Key
-4. Add to `.env` files
-
-### **Google Gemini (AI):**
-1. Go to https://aistudio.google.com
-2. Sign in with Google account
-3. Click "Get API key"
-4. Copy key and add to `backend/.env`
-
-### **MongoDB (Database):**
-1. Go to https://mongodb.com/cloud/atlas
-2. Create free cluster
-3. Get connection string
-4. Add to `backend/.env`
-
-## 📦 Available Scripts
-
-```bash
-# Run both frontend and backend
-npm run dev
-npm start  # alias for npm run dev
-
-# Run backend only
+# run backend only
 npm run dev:backend
 
-# Run frontend only
+# run frontend only
 npm run dev:frontend
 
-# Install all dependencies
+# build frontend production bundle
+npm run build
+
+# run frontend lint checks
+npm run lint:frontend
+```
+
+## Validation performed
+
+The following commands were run successfully during repository recovery:
+
+```bash
+npm install
 npm run install:all
+npm run build
+curl http://127.0.0.1:4000/
 ```
 
-## 📁 Project Structure
+Confirmed results:
+- Frontend production build succeeds.
+- Backend starts and responds with `API WORKING`.
+- Root `npm run dev` starts the frontend and backend commands together.
 
-```
-PromptToInvoice-SaaS/
-├── backend/
-│   ├── config/          # Database configuration
-│   ├── controllers/     # Route controllers
-│   ├── models/          # MongoDB models
-│   ├── routes/          # API routes
-│   ├── .env             # Backend environment variables
-│   └── server.js        # Express server
-├── frontend/
-│   ├── src/
-│   │   ├── components/  # React components
-│   │   ├── pages/       # Page components
-│   │   ├── assets/      # Images, styles
-│   │   └── main.jsx     # Entry point
-│   ├── .env             # Frontend environment variables
-│   └── index.html       # HTML template
-├── package.json         # Root package.json (run scripts)
-└── README.md           # This file
-```
+## Known blockers / follow-up work
 
-## 🌐 API Endpoints
+These are not extraction problems anymore, but they still affect full local use:
 
-### **Invoices:**
-- `GET /api/invoices` - Get all invoices
-- `GET /api/invoices/:id` - Get single invoice
-- `POST /api/invoices` - Create invoice
-- `PUT /api/invoices/:id` - Update invoice
-- `DELETE /api/invoices/:id` - Delete invoice
+1. **Real secrets are still required**
+   - Clerk auth will not function without valid Clerk keys.
+   - AI invoice generation will not work without `GEMINI_API_KEY`.
+   - Invoice/profile persistence requires a working `MONGODB_URI`.
 
-### **Business Profile:**
-- `GET /api/businessProfile/me` - Get user's profile
-- `POST /api/businessProfile` - Create profile
-- `PUT /api/businessProfile/:id` - Update profile
+2. **Backend now starts without MongoDB, but DB-backed routes still need a real database**
+   - Without `MONGODB_URI`, the server stays up for local bootstrapping and health checks.
+   - Create/update/read invoice and business-profile flows still require MongoDB.
 
-### **AI Generation:**
-- `POST /api/ai/generate` - Generate invoice from text
+3. **Frontend lint currently reports pre-existing app issues**
+   - `npm run lint:frontend` now runs correctly, but it surfaces existing code issues in files such as:
+     - `frontend/src/components/AiInvoiceModal.jsx`
+     - `frontend/src/components/AppShell.jsx`
+   - Those issues were not required to extract and bootstrap the project, so they were left as follow-up cleanup.
 
-## 🔒 Security Notes
+## Notes on fixes applied
 
-**Important:** Never commit `.env` files to git!
+During extraction/bootstrap, the following structural fixes were made:
+- excluded `node_modules` and uploaded env files from the extracted archives
+- added root `.gitignore`
+- added `backend/.env.example` and `frontend/.env.example`
+- changed backend DB setup to use `MONGODB_URI` instead of a baked-in connection string
+- allowed backend startup even when MongoDB is not configured yet
+- ensured `backend/uploads/` exists in the repo
+- aligned business-profile upload fields with the names the frontend actually sends
+- updated frontend lint wiring for the installed Next.js/ESLint toolchain
 
-Make sure `.env` is in `.gitignore`:
+## Recommended next steps
 
-```
-# .gitignore
-.env
-.env.local
-.env.*.local
-```
-
-## 🐛 Troubleshooting
-
-### **Port already in use:**
-```bash
-# Windows
-netstat -ano | findstr :4000
-taskkill /PID <PID> /F
-
-# Change port in backend/server.js if needed
-```
-
-### **MongoDB connection error:**
-```bash
-# Check your MONGODB_URI in backend/.env
-# Make sure IP is whitelisted in MongoDB Atlas
-```
-
-### **Clerk authentication error:**
-```bash
-# Verify keys in both .env files
-# Restart both servers after changing .env
-```
-
-## 📚 Documentation
-
-- [Clerk Docs](https://clerk.com/docs)
-- [Google Gemini Docs](https://ai.google.dev/docs)
-- [MongoDB Docs](https://docs.mongodb.com)
-- [React Docs](https://react.dev)
-- [Express Docs](https://expressjs.com)
-
-## 🎯 Next Steps
-
-1. ✅ Set up environment variables
-2. ✅ Run `npm run install:all`
-3. ✅ Run `npm run dev`
-4. ✅ Open http://localhost:3000
-5. ✅ Sign up and start creating invoices!
-
-## 📝 License
-
-MIT
-
-## 🤝 Contributing
-
-Contributions welcome! Please open an issue or submit a pull request.
-
----
-
-**Made with ❤️ for US/Europe Market**
+1. Add real environment values.
+2. Verify Clerk sign-in flow.
+3. Verify MongoDB-backed invoice and business-profile CRUD.
+4. Verify Gemini-powered invoice generation.
+5. Clean up the remaining frontend lint violations.
