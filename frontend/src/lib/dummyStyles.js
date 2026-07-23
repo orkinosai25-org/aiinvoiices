@@ -206,7 +206,7 @@ cardSubtitle: "text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4",
 
   // Remove button: visible & tap-friendly
   itemsRemoveButton:
-    "flex items-center justify-center p-2 rounded-lg text-rose-600 hover:bg-rose-50 transition-all duration-200 focus:outline-none",
+    "flex items-center justify-center p-2 rounded-lg text-rose-600 hover:bg-rose-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2",
 
   // per-field label: shown below lg (stacked labels)
   itemsFieldLabel: "block text-xs font-medium text-gray-600 mb-1",

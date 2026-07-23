@@ -345,7 +345,7 @@ const Dashboard = () => {
                     );
                   })}
                   {/* if no invoices */}
-                  {recent.length === 0 && !loading &&(
+                  {recent.length === 0 && !loading && (
                     <tr>
                       <td colSpan={5} className={dashboardStyles.emptyState}>
                           <div className={dashboardStyles.emptyStateText}>

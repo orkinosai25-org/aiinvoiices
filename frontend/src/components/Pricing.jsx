@@ -43,7 +43,7 @@ const PricingCard = ({
      </div>
      <div className={pricingCardStyles.priceContainer}>
         <div className={pricingCardStyles.priceWrapper}>
-         <span className={`${pricingCardStyles.price}${
+         <span className={`${pricingCardStyles.price} ${
             isPopular ? pricingCardStyles.pricePopular : pricingCardStyles.priceRegular
          }`}
          >
@@ -299,7 +299,7 @@ const Pricing = () => {
          </div>
 
          <h2 className={pricingStyles.title}>
-             Simple,{""}
+             Simple,
              <span className={pricingStyles.titleGradient}>Fair Pricing</span>
          </h2>
          <p className={pricingStyles.description}>

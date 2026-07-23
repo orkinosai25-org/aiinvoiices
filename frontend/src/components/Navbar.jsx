@@ -166,9 +166,9 @@ const Navbar = () => {
 
                         <button onClick={() => setOpen(!open)} className={navbarStyles.mobileMenuButton}>
                             <div className={navbarStyles.mobileMenuIcon}>
-                                <span className={`${navbarStyles.mobileMenuLine1}${open ? navbarStyles.mobileMenuLine1Open : navbarStyles.mobileMenuLine1Closed}`}></span>
-                                <span className={`${navbarStyles.mobileMenuLine2}${open ? navbarStyles.mobileMenuLine2Open : navbarStyles.mobileMenuLine2Closed}`}></span>
-                                <span className={`${navbarStyles.mobileMenuLine3}${open ? navbarStyles.mobileMenuLine3Open : navbarStyles.mobileMenuLine3Closed}`}></span>
+                                <span className={`${navbarStyles.mobileMenuLine1} ${open ? navbarStyles.mobileMenuLine1Open : navbarStyles.mobileMenuLine1Closed}`}></span>
+                                <span className={`${navbarStyles.mobileMenuLine2} ${open ? navbarStyles.mobileMenuLine2Open : navbarStyles.mobileMenuLine2Closed}`}></span>
+                                <span className={`${navbarStyles.mobileMenuLine3} ${open ? navbarStyles.mobileMenuLine3Open : navbarStyles.mobileMenuLine3Closed}`}></span>
                             </div>
                         </button>
                     </div>
