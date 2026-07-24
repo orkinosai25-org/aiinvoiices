@@ -322,8 +322,10 @@ export default function InvoicesPage() {
 
     useEffect(() => {
         // load invoices on mount and whenever auth state changes.
-        // fetchInvoices is async and begins with setLoading(true); the
-        // set-state-in-effect rule is suppressed here for this common pattern.
+        // fetchInvoices is async and begins with setLoading(true). The
+        // react-hooks/set-state-in-effect rule (eslint-plugin-react-hooks ≥ v7)
+        // flags indirect synchronous setState calls inside effects; suppressed
+        // here because this data-fetching pattern is intentional and safe.
         // eslint-disable-next-line react-hooks/set-state-in-effect
         fetchInvoices();
     }, [fetchInvoices, isSignedIn]);

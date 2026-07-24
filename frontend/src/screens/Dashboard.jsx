@@ -151,6 +151,9 @@ const Dashboard = () => {
   useEffect(() => {
     // fetchInvoices/fetchBusinessProfile are async functions that start with
     // setLoading(true). This is the standard React data-fetching pattern.
+    // The react-hooks/set-state-in-effect rule (eslint-plugin-react-hooks ≥ v7)
+    // flags indirect synchronous setState calls inside effect bodies; suppressed
+    // here because the pattern is intentional and safe.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchInvoices();
     // eslint-disable-next-line react-hooks/set-state-in-effect
