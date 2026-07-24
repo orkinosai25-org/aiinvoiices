@@ -255,7 +255,7 @@ export default function InvoicesPage() {
     const obtainToken = useCallback(async () => {
         if (typeof getToken !== "function") return null;
         try {
-            let token = await getToken({ template: "default" }).catch(() => null);
+            let token = await getToken().catch(() => null);
             if (!token) {
                 token = await getToken({ forceRefresh: true }).catch(() => null);
             }
@@ -321,7 +321,10 @@ export default function InvoicesPage() {
     }, [obtainToken]);
 
     useEffect(() => {
-        // load invoices on mount and whenever auth state changes
+        // load invoices on mount and whenever auth state changes.
+        // fetchInvoices is async and begins with setLoading(true); the
+        // set-state-in-effect rule is suppressed here for this common pattern.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         fetchInvoices();
     }, [fetchInvoices, isSignedIn]);
 
@@ -396,12 +399,10 @@ export default function InvoicesPage() {
     }, [allInvoices, search, status, from, to, sortBy]);
 
     const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
-    const startIndex = (page - 1) * perPage;
+    // Clamp the current page to a valid range without using a side-effect.
+    const safePage = page > totalPages ? 1 : page;
+    const startIndex = (safePage - 1) * perPage;
     const pageData = filtered.slice(startIndex, startIndex + perPage);
-
-    useEffect(() => {
-        if (page > totalPages) setPage(1);
-    }, [totalPages]);
 
     function handleSort(key) {
         setSortBy((s) =>
@@ -1045,7 +1046,7 @@ export default function InvoicesPage() {
                 {pageData.length > 0 && (
                     <div className={invoicesStyles.paginationContainer}>
                         <Pagination
-                            page={page}
+                            page={safePage}
                             totalPages={totalPages}
                             onChange={(p) => setPage(p)}
                         />
@@ -1053,8 +1054,9 @@ export default function InvoicesPage() {
                 )}
             </div>
 
-            {/* AI modal */}
+            {/* AI modal — key on aiOpen ensures a fresh mount (and fresh state) on each open */}
             <AiInvoiceModal
+                key={String(aiOpen)}
                 open={aiOpen}
                 onClose={() => setAiOpen(false)}
                 onGenerate={handleGenerateFromAI}

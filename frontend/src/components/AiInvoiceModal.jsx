@@ -1,20 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { aiInvoiceModalStyles } from '@/lib/dummyStyles';
 import GeminiIcon from './GeminiIcon';
 import AnimatedButton from '@/assets/GenerateBtn/Gbtn';
 
+// State is intentionally reset on each open by using key={String(open)} at the
+// call site (Invoices.jsx). No useEffect is needed for state reset.
 const AiInvoiceModal = ({ open, onClose, onGenerate, initialText = "" }) => {
   const [text, setText] = useState(initialText || "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    setText(initialText || "");
-    setError("");
-    setLoading(false);
-  }, [open, initialText]);
 
   if (!open) return null;
 
