@@ -175,9 +175,7 @@ export default function InvoicePreview() {
   const loc = useLocation();
   const navigate = useNavigate();
 
-  const { getToken, isSignedIn } = useAuth
-    ? useAuth()
-    : { getToken: null, isSignedIn: false };
+  const { getToken, isSignedIn } = useAuth();
 
   const invoiceFromState = loc?.state?.invoice ?? null;
   const [invoice, setInvoice] = useState(() =>
@@ -391,7 +389,7 @@ export default function InvoicePreview() {
               Invoice Not Found
             </h3>
             <p className={invoicePreviewStyles.emptyStateMessage}>
-              The invoice you're looking for doesn't exist or may have been
+              The invoice you&apos;re looking for doesn&apos;t exist or may have been
               deleted.
             </p>
             <div className="mt-6">

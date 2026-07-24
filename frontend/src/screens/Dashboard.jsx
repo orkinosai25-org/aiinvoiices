@@ -59,7 +59,7 @@ const Dashboard = () => {
   const obtainToken = useCallback(async () => {
     if (typeof getToken !== "function") return null;
     try {
-      let token = await getToken({ template: "default" }).catch(() => null);
+      let token = await getToken().catch(() => null);
       if (!token) {
         token = await getToken({ forceRefresh: true }).catch(() => null);
       }
@@ -149,7 +149,14 @@ const Dashboard = () => {
   }, [obtainToken]);
 
   useEffect(() => {
+    // fetchInvoices/fetchBusinessProfile are async functions that start with
+    // setLoading(true). This is the standard React data-fetching pattern.
+    // The react-hooks/set-state-in-effect rule (eslint-plugin-react-hooks ≥ v7)
+    // flags indirect synchronous setState calls inside effect bodies; suppressed
+    // here because the pattern is intentional and safe.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchInvoices();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchBusinessProfile();
 
     function onStorage(e) {

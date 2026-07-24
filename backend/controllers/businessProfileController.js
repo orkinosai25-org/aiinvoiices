@@ -173,7 +173,7 @@ export async function getMyBusinessProfile(req,res){
      }
         const profile = await BusinessProfile.findOne({owner: userId}).lean();
         if(!profile){
-             return res.status(204).json({
+             return res.status(404).json({
             success: false,
             message: "No profile found"
         })

@@ -188,7 +188,7 @@ export default function CreateInvoice() {
   const obtainToken = useCallback(async () => {
     if (typeof getToken !== "function") return null;
     try {
-      let token = await getToken({ template: "default" }).catch(() => null);
+      let token = await getToken().catch(() => null);
       if (!token) {
         token = await getToken({ forceRefresh: true }).catch(() => null);
       }
