@@ -42,7 +42,7 @@ const Hero = () => {
               <div className={heroStyles.badge}>
                 <div className={heroStyles.badgeDot}></div>
                 <span className={heroStyles.badgeText}>
-                  AI-Powerd Invoicing Platform
+                  AI-Powered Invoicing Platform
                 </span>
               </div>
 
@@ -240,7 +240,7 @@ const Hero = () => {
                     <div className={heroStyles.aiIndicatorDot}></div>
                     <span>AI parsed from:</span>
                     <span className={heroStyles.aiIndicatorText}>
-                      "Invoice for web design - $2,500"
+                      &ldquo;Invoice for web design - $2,500&rdquo;
                     </span>
                 </div>
               </div>
